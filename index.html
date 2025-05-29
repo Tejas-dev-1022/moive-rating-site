@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IMDb Ratings Generator</title>
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+</head>
+<body>
+  <h1>Upload .docx with Movie Titles</h1>
+  <input type="file" id="upload" accept=".docx" />
+  <button onclick="generateCSV()">Generate CSV</button>
+  <br><br>
+  <a id="downloadLink" style="display:none">Download CSV</a>
+
+  <script src="script.js"></script>
+</body>
+</html>

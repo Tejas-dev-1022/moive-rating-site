@@ -13,7 +13,7 @@ document.getElementById('upload').addEventListener('change', function(event) {
 });
 
 async function getMovieData(title) {
-  const apiKey = 'f49e4b48'; // <-- Replace with your real OMDb API key
+  const apiKey = 'f49e4b48'; // <-- REPLACE THIS with your OMDb API key
   const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -31,17 +31,32 @@ async function generateCSV() {
   }
 
   const rows = [["Movie Name", "Year", "Rating"]];
-  for (let movie of movieList) {
+  const progressBar = document.getElementById("progressBar");
+  const progressContainer = document.getElementById("progressContainer");
+  progressContainer.style.display = "block";
+  progressBar.style.width = "0%";
+  progressBar.textContent = "0%";
+
+  for (let i = 0; i < movieList.length; i++) {
+    const movie = movieList[i];
     const row = await getMovieData(movie);
     rows.push(row);
+
+    // Update progress bar
+    const percent = Math.round(((i + 1) / movieList.length) * 100);
+    progressBar.style.width = percent + "%";
+    progressBar.textContent = percent + "%";
   }
 
-  const csv = rows.map(r => r.join(",")).join("\n");
-  const blob = new Blob([csv], { type: 'text/csv' });
+  const csvContent = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
 
   const link = document.getElementById("downloadLink");
   link.href = url;
-  link.download = "movie_ratings.csv";
   link.style.display = "inline-block";
+
+  // Done!
+  progressBar.textContent = "Complete!";
 }
+

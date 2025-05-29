@@ -3,14 +3,38 @@
 <head>
   <title>IMDb Ratings Generator</title>
   <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+  <style>
+    #progressContainer {
+      width: 100%;
+      background-color: #f3f3f3;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+      height: 25px;
+      display: none;
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      background-color: #4caf50;
+      text-align: center;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <h1>Upload .docx with Movie Titles</h1>
   <input type="file" id="upload" accept=".docx" />
   <button onclick="generateCSV()">Generate CSV</button>
+  
+  <div id="progressContainer">
+    <div id="progressBar">0%</div>
+  </div>
+
   <br><br>
-  <a id="downloadLink" style="display:none">Download CSV</a>
+  <a id="downloadLink" style="display: none;" download="movie_ratings.csv">Download CSV</a>
 
   <script src="script.js"></script>
 </body>
 </html>
+
